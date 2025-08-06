@@ -15,7 +15,7 @@ app.use(express.json());
 // Database connection
 const port = 5000;
 const db = mysql.createConnection({
-  host: "localhost",
+  host: "127.0.0.1", // set to match the default binding of mariadb
   user: "root",
   password: "",
   database: "students",
