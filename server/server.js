@@ -17,7 +17,7 @@ const port = 5000;
 const db = mysql.createConnection({
   host: "127.0.0.1", // set to match the default binding of mariadb
   user: "root",
-  password: "mypassword",
+  password: "yourpassword",
   database: "students",
 });
 
