@@ -39,7 +39,10 @@ app.post("/add_user", (req, res) => {
 app.get("/students", (req, res) => {
   const sql = "SELECT * FROM student_details";
   db.query(sql, (err, result) => {
-    if (err) res.json({ message: "Server error" });
+    if (err) {
+      console.error("Database error:", err); // log in server
+      return res.status(500).json({ message: err.message }); // return real error
+    }
     return res.json(result);
   });
 });
