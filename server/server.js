@@ -1,13 +1,18 @@
+// Import the required libraries
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const path = require("path");
+
+// Initialize app & middleware
 const app = express();
 //path.resolve()
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 app.use(express.json());
 
+
+// Database connection
 const port = 5000;
 const db = mysql.createConnection({
   host: "localhost",
@@ -17,6 +22,8 @@ const db = mysql.createConnection({
 });
 
 
+// API Endpoints
+// Add a student API
 app.post("/add_user", (req, res) => {
   const sql =
     "INSERT INTO student_details (`name`,`email`,`age`,`gender`) VALUES (?, ?, ?, ?)";
@@ -28,6 +35,7 @@ app.post("/add_user", (req, res) => {
   });
 });
 
+// Get all students API
 app.get("/students", (req, res) => {
   const sql = "SELECT * FROM student_details";
   db.query(sql, (err, result) => {
@@ -36,6 +44,7 @@ app.get("/students", (req, res) => {
   });
 });
 
+// Get a student by ID API
 app.get("/get_student/:id", (req, res) => {
   const id = req.params.id;
   const sql = "SELECT * FROM student_details WHERE `id`= ?";
@@ -45,6 +54,7 @@ app.get("/get_student/:id", (req, res) => {
   });
 });
 
+// Edit a student API
 app.post("/edit_user/:id", (req, res) => {
   const id = req.params.id;
   const sql =
@@ -63,6 +73,7 @@ app.post("/edit_user/:id", (req, res) => {
   });
 });
 
+// Delete a student API
 app.delete("/delete/:id", (req, res) => {
   const id = req.params.id;
   const sql = "DELETE FROM student_details WHERE id=?";
@@ -74,6 +85,7 @@ app.delete("/delete/:id", (req, res) => {
   });
 });
 
+// Start the server
 app.listen(port, () => {
   console.log(`listening on port ${port} `);
 });

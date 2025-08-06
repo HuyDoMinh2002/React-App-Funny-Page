@@ -26,3 +26,9 @@ module "network" {
   project_id         = var.project_id
   gcp_project_region = var.gcp_project_region
 }
+
+module "compute" {
+  source                 = "./modules/compute"
+  subnet_id              = module.network.subnet_id
+  compute_api_dependency = google_project_service.compute
+}
